@@ -3,12 +3,11 @@ using OPL_grafana_meilisearch.DTOs;
 using OPL_grafana_meilisearch.src.Core.Interface;
 using ILogger = Serilog.ILogger;
 
-
 namespace OPL_grafana_meilisearch.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly ILogger _logger;
@@ -17,7 +16,6 @@ namespace OPL_grafana_meilisearch.Controllers
         {
             _userService = userService;
             _logger = logger;
-
         }
 
         [HttpGet("GetAllUser")]
@@ -32,13 +30,14 @@ namespace OPL_grafana_meilisearch.Controllers
             }
             catch (Exception ex)
             {
-                ErrorData err = new ErrorData();
-                err.Code = "1-GetAllUsers";
-                err.Message = "Error getting Users";
+                var err = new ErrorData
+                {
+                    Code = "1-GetAllUsers",
+                    Message = "Error getting Users"
+                };
                 _logger.Error(ex, "Error getting All Users");
                 return BadRequest(err);
             }
         }
-
     }
 }

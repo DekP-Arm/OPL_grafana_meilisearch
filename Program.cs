@@ -8,24 +8,19 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure Serilog
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddControllers();
-
-// builder.Host.UseSerilog((context,configuration) => configuration
-//     .ReadFrom.Configuration(context.Configuration));
-
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddScoped<IFailedRepository,FailedRepository>();
+builder.Services.AddScoped<IFailedRepository, FailedRepository>();
 builder.Services.AddScoped<IFailedService, FailedService>();
 
-
-//add IHttpContextAccesstor
 builder.Services.AddHttpContextAccessor();
-
-//add interceptor
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -43,6 +38,7 @@ builder.Services.AddCors(options =>
                      .AllowAnyHeader();
     });
 });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -58,5 +54,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.MapControllers();
+
+app.UseSerilogRequestLogging();
 
 app.Run();

@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using OPL_grafana_meilisearch;
 using OPL_grafana_meilisearch.src.Entities;
 using OPL_grafana_meilisearch.src.Infrastructure.Interface;
 
