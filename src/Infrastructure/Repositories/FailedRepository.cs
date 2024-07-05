@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using testAPI.src.Entities;
-using testAPI.src.Infrastructure.Interface;
+using OPL_grafana_meilisearch;
+using OPL_grafana_meilisearch.src.Entities;
+using OPL_grafana_meilisearch.src.Infrastructure.Interface;
 
 
-namespace testAPI.src.Infrastructure.Repositories
+namespace OPL_grafana_meilisearch.src.Infrastructure.Repositories
 {
     public class FailedRepository : IFailedRepository
     {

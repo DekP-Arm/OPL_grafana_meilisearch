@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace testAPI.src.Entities
+namespace OPL_grafana_meilisearch.src.Entities
 {
     [Table("USER")]
     public class UserDbo

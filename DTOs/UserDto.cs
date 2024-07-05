@@ -1,4 +1,4 @@
-namespace testAPI.DTOs
+namespace OPL_grafana_meilisearch.DTOs
 {
     public class UserDto
     {

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using testAPI.src.Entities;
+using OPL_grafana_meilisearch.src.Entities;
 
-namespace testAPI
+namespace OPL_grafana_meilisearch
 {
     public class DataContext : DbContext
     {

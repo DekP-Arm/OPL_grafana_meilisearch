@@ -1,23 +1,24 @@
 using Microsoft.EntityFrameworkCore;
-using testAPI;
-using testAPI.src.Core.Interface;
-using testAPI.src.Core.Service;
-using testAPI.src.Infrastructure.Interface;
-using testAPI.src.Infrastructure.Repositories;
-
+using OPL_grafana_meilisearch;
+using OPL_grafana_meilisearch.src.Core.Interface;
+using OPL_grafana_meilisearch.src.Core.Service;
+using OPL_grafana_meilisearch.src.Infrastructure.Interface;
+using OPL_grafana_meilisearch.src.Infrastructure.Repositories;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
 
-
+// builder.Host.UseSerilog((context,configuration) => configuration
+//     .ReadFrom.Configuration(context.Configuration));
 
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddScoped<IFailedRepository, FailedRepository>();
+builder.Services.AddScoped<IFailedRepository,FailedRepository>();
 builder.Services.AddScoped<IFailedService, FailedService>();
 
 

@@ -1,8 +1,8 @@
-using testAPI.DTOs;
-using testAPI.src.Core.Interface;
-using testAPI.src.Infrastructure.Interface;
+using OPL_grafana_meilisearch.DTOs;
+using OPL_grafana_meilisearch.src.Core.Interface;
+using OPL_grafana_meilisearch.src.Infrastructure.Interface;
 
-namespace testAPI.src.Core.Service
+namespace OPL_grafana_meilisearch.src.Core.Service
 {
     public class FailedService : IFailedService
     {

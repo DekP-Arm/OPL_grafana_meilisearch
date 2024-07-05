@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using testAPI.DTOs;
-using testAPI.src.Core.Interface;
+using OPL_grafana_meilisearch.DTOs;
+using OPL_grafana_meilisearch.src.Core.Interface;
 using ILogger = Serilog.ILogger;
 
-namespace permissionAPI.Controllers
+namespace OPL_grafana_meilisearch.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

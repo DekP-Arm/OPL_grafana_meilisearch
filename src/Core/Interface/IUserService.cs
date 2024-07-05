@@ -1,6 +1,6 @@
-using testAPI.DTOs;
+using OPL_grafana_meilisearch.DTOs;
 
-namespace testAPI.src.Core.Interface
+namespace OPL_grafana_meilisearch.src.Core.Interface
 {
     public interface IUserService
     {

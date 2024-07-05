@@ -1,6 +1,6 @@
-using testAPI.src.Entities;
+using OPL_grafana_meilisearch.src.Entities;
 
-namespace testAPI.src.Infrastructure.Interface
+namespace OPL_grafana_meilisearch.src.Infrastructure.Interface
 {
     public interface IUserRepository
     {
