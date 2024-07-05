@@ -9,13 +9,13 @@ namespace testAPI.src.Entities
     {
         [Key]
         [Required]
-        [Column("UserId", TypeName = "int")]
+        [Column("userid", TypeName = "int")]
         public int UserId { get; set; }
 
-        [Column("Username", TypeName = "nvarchar(255)")]
+        [Column("username", TypeName = "nvarchar(255)")]
         public string? Username { get; set; }
 
-        [Column("Password", TypeName = "nvarchar(255)")]
+        [Column("password", TypeName = "nvarchar(255)")]
         public string? Password { get; set; }
     }
 }

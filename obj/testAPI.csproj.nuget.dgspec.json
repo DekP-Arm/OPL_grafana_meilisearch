@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\TCC2\\testAPI\\testAPI.csproj": {}
+    "/Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/testAPI.csproj": {}
   },
   "projects": {
-    "E:\\TCC2\\testAPI\\testAPI.csproj": {
+    "/Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/testAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\TCC2\\testAPI\\testAPI.csproj",
+        "projectUniqueName": "/Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/testAPI.csproj",
         "projectName": "testAPI",
-        "projectPath": "E:\\TCC2\\testAPI\\testAPI.csproj",
-        "packagesPath": "C:\\Users\\Thailand\\.nuget\\packages\\",
-        "outputPath": "E:\\TCC2\\testAPI\\obj\\",
+        "projectPath": "/Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/testAPI.csproj",
+        "packagesPath": "/Users/comnarin/.nuget/packages/",
+        "outputPath": "/Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Thailand\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/comnarin/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -91,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

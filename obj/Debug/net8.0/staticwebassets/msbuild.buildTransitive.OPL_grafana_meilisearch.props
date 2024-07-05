@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/OPL_grafana_meilisearch.props" />
+</Project>

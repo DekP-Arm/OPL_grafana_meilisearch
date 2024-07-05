@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "luyjCkTqIgviGChtI6yn/4tz6zvGGF8HZ+TvGXEPy6M=",
-  "Source": "testAPI",
-  "BasePath": "_content/testAPI",
+  "Hash": "E4t1gTGbAnGQrqNAV+xGQeX7akZRbFcoicr2rLATGg8=",
+  "Source": "OPL_grafana_meilisearch",
+  "BasePath": "_content/OPL_grafana_meilisearch",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

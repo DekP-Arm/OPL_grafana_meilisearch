@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using testAPI.DTOs;
 using testAPI.src.Core.Interface;
+using ILogger = Serilog.ILogger;
 
 
 namespace permissionAPI.Controllers
@@ -10,9 +11,9 @@ namespace permissionAPI.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-        private readonly ILogger<UserDto> _logger;
+        private readonly ILogger _logger;
 
-        public UserController(IUserService userService, ILogger<UserDto> logger)
+        public UserController(IUserService userService, ILogger logger)
         {
             _userService = userService;
             _logger = logger;
@@ -34,7 +35,7 @@ namespace permissionAPI.Controllers
                 ErrorData err = new ErrorData();
                 err.Code = "1-GetAllUsers";
                 err.Message = "Error getting Users";
-                _logger.LogError(ex, "Error getting All Users");
+                _logger.Error(ex, "Error getting All Users");
                 return BadRequest(err);
             }
         }

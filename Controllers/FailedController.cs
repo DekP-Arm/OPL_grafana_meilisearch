@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using testAPI.DTOs;
 using testAPI.src.Core.Interface;
-
+using ILogger = Serilog.ILogger;
 
 namespace permissionAPI.Controllers
 {
@@ -10,9 +10,9 @@ namespace permissionAPI.Controllers
     public class FailedController : Controller
     {
         private readonly IFailedService _failedService;
-        private readonly ILogger<FailedDto> _logger;
+        private readonly ILogger _logger;
 
-        public FailedController(IFailedService failedService, ILogger<FailedDto> logger)
+        public FailedController(IFailedService failedService, ILogger logger)
         {
             _failedService = failedService;
             _logger = logger;
@@ -34,7 +34,7 @@ namespace permissionAPI.Controllers
                 ErrorData err = new ErrorData();
                 err.Code = "1-GetAllFaileds";
                 err.Message = "Error getting Faileds";
-                _logger.LogError(ex, "Error getting All Faileds");
+                _logger.Error(ex, "Error getting All Faileds");
                 return BadRequest(err);
             }
         }
