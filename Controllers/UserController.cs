@@ -39,5 +39,27 @@ namespace OPL_grafana_meilisearch.Controllers
                 return BadRequest(err);
             }
         }
+
+        [HttpPost("AddUser")]
+        public async Task<IActionResult> AddUserAsync()
+        {
+            var response = new BaseHttpResponse<List<UserDto>>();
+            try
+            {
+                var data = await _userService.AddUserAsync();
+                response.SetSuccess(data, "Success", "200");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var err = new ErrorData
+                {
+                    Code = "1-GetAllUsers",
+                    Message = "Error getting Users"
+                };
+                _logger.Error(ex, "Error getting All Users");
+                return BadRequest(err);
+            }
+        }
     }
 }

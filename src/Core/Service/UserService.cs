@@ -31,5 +31,24 @@ namespace OPL_grafana_meilisearch.src.Core.Service
                 throw ex;
             }
         }
+        public Task<List<UserDto>> AddUserAsync(List<UserDto> userInput)
+    {
+        try
+        {
+            var result = userInput.Select(x => new UserDto
+            {
+                Username = x.Username,
+                Password = x.Password
+            }).ToList();
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+           
+            throw ex;
+        }
+    }
+}
     }
 }
