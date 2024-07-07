@@ -40,7 +40,7 @@ namespace OPL_grafana_meilisearch.Controllers
             }
         }
 
-         [HttpPost("AddUser")]
+        [HttpPost("AddUser")]
         public async Task<IActionResult> AddUserAsync(string username, string password)
         {
             var response = new BaseHttpResponse<List<UserDto>>();
