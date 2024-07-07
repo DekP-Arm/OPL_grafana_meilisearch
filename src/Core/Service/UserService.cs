@@ -6,7 +6,7 @@ namespace OPL_grafana_meilisearch.src.Core.Service
 {
     public class UserService : IUserService
     {
-        public readonly  IUserRepository _userRepository;
+        public readonly IUserRepository _userRepository;
 
         public UserService(IUserRepository userRepository)
         {
@@ -15,9 +15,10 @@ namespace OPL_grafana_meilisearch.src.Core.Service
 
         public async Task<List<UserDto>> GetAllUserAsync()
         {
-            try{
+            try
+            {
                 var userData = await _userRepository.GetAllUserAsync();
-                var result = userData.Select( x => new UserDto
+                var result = userData.Select(x => new UserDto
                 {
                     UserId = x.UserId,
                     Username = x.Username,
@@ -31,24 +32,29 @@ namespace OPL_grafana_meilisearch.src.Core.Service
                 throw ex;
             }
         }
-        public Task<List<UserDto>> AddUserAsync(List<UserDto> userInput)
-    {
-        try
+        public async Task<List<UserDto>> AddUserAsync(string username, string password)
         {
-            var result = userInput.Select(x => new UserDto
+            try
             {
-                Username = x.Username,
-                Password = x.Password
-            }).ToList();
+                // Simulate async operation
+                await Task.Delay(100);
 
-            return result;
-        }
-        catch (Exception ex)
-        {
-           
-            throw ex;
+                var result = new List<UserDto>
+            {
+                new UserDto
+                {
+                    Username = username,
+                    Password = password
+                }
+            };
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
-    }
-}
+

@@ -40,13 +40,14 @@ namespace OPL_grafana_meilisearch.Controllers
             }
         }
 
-        [HttpPost("AddUser")]
-        public async Task<IActionResult> AddUserAsync()
+         [HttpPost("AddUser")]
+        public async Task<IActionResult> AddUserAsync(string username, string password)
         {
             var response = new BaseHttpResponse<List<UserDto>>();
             try
             {
-                var data = await _userService.AddUserAsync();
+   
+                var data = await _userService.AddUserAsync(username,password);
                 response.SetSuccess(data, "Success", "200");
                 return Ok(response);
             }
@@ -54,10 +55,10 @@ namespace OPL_grafana_meilisearch.Controllers
             {
                 var err = new ErrorData
                 {
-                    Code = "1-GetAllUsers",
-                    Message = "Error getting Users"
+                    Code = "1-AddUser",
+                    Message = "Error adding users"
                 };
-                _logger.Error(ex, "Error getting All Users");
+                _logger.Error(ex, "Error adding users");
                 return BadRequest(err);
             }
         }
