@@ -147,3 +147,4 @@
 /Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/bin/Debug/net8.0/Serilog.Sinks.Console.dll
 /Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/bin/Debug/net8.0/Serilog.Sinks.Debug.dll
 /Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/bin/Debug/net8.0/Serilog.Sinks.File.dll
+/Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/bin/Debug/net8.0/Newtonsoft.Json.dll

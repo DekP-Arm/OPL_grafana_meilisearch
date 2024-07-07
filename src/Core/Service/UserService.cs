@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using OPL_grafana_meilisearch.DTOs;
 using OPL_grafana_meilisearch.src.Core.Interface;
 using OPL_grafana_meilisearch.src.Infrastructure.Interface;
@@ -7,6 +8,8 @@ namespace OPL_grafana_meilisearch.src.Core.Service
     public class UserService : IUserService
     {
         public readonly IUserRepository _userRepository;
+        public readonly HttpClient client = new HttpClient();
+
 
         public UserService(IUserRepository userRepository)
         {
@@ -17,15 +20,14 @@ namespace OPL_grafana_meilisearch.src.Core.Service
         {
             try
             {
-                var userData = await _userRepository.GetAllUserAsync();
-                var result = userData.Select(x => new UserDto
-                {
-                    UserId = x.UserId,
-                    Username = x.Username,
-                    Password = x.Password
-                }
-                ).ToList();
+
+                using HttpResponseMessage response = await client.GetAsync("https://668abaee2c68eaf3211da858.mockapi.io/api/getdata/users");
+                var responseBody = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseBody);
+                var result = JsonConvert.DeserializeObject<List<UserDto>>(responseBody);
                 return result;
+
+
             }
             catch (Exception ex)
             {

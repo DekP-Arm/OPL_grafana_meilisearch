@@ -1,0 +1,13 @@
+2024-07-08 00:15:41.955 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 62.7463 ms
+2024-07-08 00:15:43.904 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 4.3355 ms
+2024-07-08 00:27:21.540 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-07-08 00:27:23.002 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1410.8120 ms
+2024-07-08 00:27:52.055 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1228.2082 ms
+2024-07-08 00:29:24.395 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-07-08 00:29:25.790 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1360.7065 ms
+2024-07-08 00:36:34.983 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-07-08 00:36:36.630 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1596.2184 ms
+2024-07-08 00:39:37.328 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-07-08 00:39:38.685 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1319.7044 ms
+2024-07-08 00:40:37.838 +07:00 [INF] HTTP POST /api/User/AddUser responded 200 in 138.9475 ms
+2024-07-08 00:40:39.349 +07:00 [INF] HTTP POST /api/User/AddUser responded 200 in 103.7370 ms

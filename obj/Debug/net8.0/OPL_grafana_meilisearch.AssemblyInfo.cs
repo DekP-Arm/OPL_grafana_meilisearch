@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OPL_grafana_meilisearch")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a7ca00e0a2a7b63fa1e42598d8df665e3e925ae3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40c53ebb199828e859a2ed207ad01d8214706a4b")]
 [assembly: System.Reflection.AssemblyProductAttribute("OPL_grafana_meilisearch")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OPL_grafana_meilisearch")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

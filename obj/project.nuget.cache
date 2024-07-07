@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Mm+zGXn0sqFR0zY2EXSFOr+C5ZA6G4mDanMmrXyfSBrY3M4bEVCoZA6KjY4BcktYf2YXbK11iTHVUKxKqV2nIw==",
+  "dgSpecHash": "Uc5dEN2iRj2lFBJ8lTnYvcQ6B9XpLrQP5kIVg/cGyTKgXssAdp8jKQtX3GiPDmJW0oDUqvwLJZo2/7c7GUr5uw==",
   "success": true,
   "projectFilePath": "/Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj",
   "expectedPackageFiles": [
@@ -53,6 +53,7 @@
     "/Users/comnarin/.nuget/packages/microsoft.sqlserver.server/1.0.0/microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "/Users/comnarin/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "/Users/comnarin/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
+    "/Users/comnarin/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/Users/comnarin/.nuget/packages/npgsql/8.0.3/npgsql.8.0.3.nupkg.sha512",
     "/Users/comnarin/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.4/npgsql.entityframeworkcore.postgresql.8.0.4.nupkg.sha512",
     "/Users/comnarin/.nuget/packages/serilog/4.0.0/serilog.4.0.0.nupkg.sha512",
