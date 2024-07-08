@@ -1339,3 +1339,5 @@ System.InvalidOperationException: An exception has been raised that is likely du
    at OPL_grafana_meilisearch.Controllers.FailedController.GetAllFailedAsync()
 2024-07-08 14:33:01.175 +07:00 [INF] HTTP GET /api/Failed/GetAllFailed responded 400 in 98.1598 ms
 2024-07-08 14:33:42.031 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1198.0349 ms
+2024-07-08 14:40:12.411 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-07-08 14:40:13.885 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1441.2434 ms

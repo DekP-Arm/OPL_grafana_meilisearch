@@ -1,7 +1,6 @@
 version: '3.8' 
 services:
   opl_grafana_meilisearch:
-    image: opl_grafana_meilisearch
     build:
       context: .
       dockerfile: Dockerfile
