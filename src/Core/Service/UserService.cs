@@ -23,7 +23,7 @@ namespace OPL_grafana_meilisearch.src.Core.Service
 
                 using HttpResponseMessage response = await client.GetAsync("https://668abaee2c68eaf3211da858.mockapi.io/api/getdata/users");
                 var responseBody = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseBody);
+                // Console.WriteLine(responseBody);
                 var result = JsonConvert.DeserializeObject<List<UserDto>>(responseBody);
                 return result;
 

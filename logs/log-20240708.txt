@@ -1,0 +1,9 @@
+2024-07-08 09:04:56.552 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-07-08 09:04:56.578 +07:00 [INF] HTTP GET /swagger/index.html responded 404 in 0.3174 ms
+2024-07-08 09:05:28.789 +07:00 [INF] HTTP GET /swagger/index.html responded 404 in 0.0975 ms
+2024-07-08 09:05:43.379 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-07-08 09:05:44.753 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1346.7171 ms
+2024-07-08 09:07:08.068 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1318.4309 ms
+2024-07-08 09:07:09.817 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1293.3589 ms
+2024-07-08 09:07:21.120 +07:00 [INF] HTTP POST /api/User/AddUser responded 200 in 117.0828 ms
+2024-07-08 09:07:27.839 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1498.7882 ms
