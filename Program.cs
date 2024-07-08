@@ -5,6 +5,7 @@ using OPL_grafana_meilisearch.src.Core.Service;
 using OPL_grafana_meilisearch.src.Infrastructure.Interface;
 using OPL_grafana_meilisearch.src.Infrastructure.Repositories;
 using Serilog;
+using Meilisearch;
 
 var builder = WebApplication.CreateBuilder(args);
 

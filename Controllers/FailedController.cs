@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using OPL_grafana_meilisearch.DTOs;
 using OPL_grafana_meilisearch.src.Core.Interface;
 using ILogger = Serilog.ILogger;
+using Meilisearch;
 
 namespace OPL_grafana_meilisearch.Controllers
 {
@@ -11,12 +12,13 @@ namespace OPL_grafana_meilisearch.Controllers
     {
         private readonly IFailedService _failedService;
         private readonly ILogger _logger;
+        private readonly MeilisearchClient _meilisearch;
 
         public FailedController(IFailedService failedService, ILogger logger)
         {
             _failedService = failedService;
             _logger = logger;
-
+            _meilisearch = new MeilisearchClient("http://localhost:7700", "masterKey");
         }
 
         [HttpGet("GetAllFailed")]
@@ -27,6 +29,8 @@ namespace OPL_grafana_meilisearch.Controllers
             {
                 var data = await _failedService.GetAllFailedAsync();
                 response.SetSuccess(data, "Success", "200");
+                var index = _meilisearch.Index("FailedLogs");
+                await index.AddDocumentsAsync(data);
                 return Ok(response);
             }
             catch (Exception ex)

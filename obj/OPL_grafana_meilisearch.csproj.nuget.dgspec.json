@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/tirawat.pst/Documents/coding/dotNet/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj": {}
+    "/Users/saran/Desktop/tcc/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj": {}
   },
   "projects": {
-    "/Users/tirawat.pst/Documents/coding/dotNet/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj": {
+    "/Users/saran/Desktop/tcc/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/tirawat.pst/Documents/coding/dotNet/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj",
+        "projectUniqueName": "/Users/saran/Desktop/tcc/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj",
         "projectName": "OPL_grafana_meilisearch",
-        "projectPath": "/Users/tirawat.pst/Documents/coding/dotNet/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj",
-        "packagesPath": "/Users/tirawat.pst/.nuget/packages/",
-        "outputPath": "/Users/tirawat.pst/Documents/coding/dotNet/OPL_grafana_meilisearch/obj/",
+        "projectPath": "/Users/saran/Desktop/tcc/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj",
+        "packagesPath": "/Users/saran/.nuget/packages/",
+        "outputPath": "/Users/saran/Desktop/tcc/OPL_grafana_meilisearch/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/tirawat.pst/.nuget/NuGet/NuGet.Config"
+          "/Users/saran/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -43,6 +43,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Meilisearch": {
+              "target": "Package",
+              "version": "[0.15.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.6, )"
