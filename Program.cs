@@ -6,56 +6,132 @@ using OPL_grafana_meilisearch.src.Infrastructure.Interface;
 using OPL_grafana_meilisearch.src.Infrastructure.Repositories;
 using Serilog;
 using Meilisearch;
+using Microsoft.Extensions.Configuration;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
+using System.Collections.Generic;
 
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using OpenTelemetry;
 
-// Configure Serilog
-builder.Host.UseSerilog((context, configuration) =>
-    configuration.ReadFrom.Configuration(context.Configuration));
 
-builder.Services.AddControllers();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
-
-builder.Services.AddScoped<IFailedRepository, FailedRepository>();
-builder.Services.AddScoped<IFailedService, FailedService>();
-
-builder.Services.AddHttpContextAccessor();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContext<DataContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// Add CORS policy
-builder.Services.AddCors(options =>
+namespace OPL_grafana_meilisearch
 {
-    options.AddPolicy("AllowAll", policyBuilder =>
+    public class Program
     {
-        policyBuilder.AllowAnyOrigin()
-                     .AllowAnyMethod()
-                     .AllowAnyHeader();
-    });
-});
+        public static ConfigurationManager? Configuration { get; private set; }
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+            Configuration = builder.Configuration;
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policyBuilder =>
+                {
+                    policyBuilder.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader();
+                });
+            });
+            // Add services to the container.
+            builder.Services.AddControllers();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
-app.UseCors();
+            builder.Services.AddScoped<IFailedRepository, FailedRepository>();
+            builder.Services.AddScoped<IFailedService, FailedService>();
 
-app.UseHttpsRedirection();
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new() { Title = "OPL_grafana_meilisearch", Version = "v1" });
+            });
 
-app.UseAuthorization();
-app.MapControllers();
+            builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
-app.UseSerilogRequestLogging();
+            // Add Opentelemetry
 
-app.Run();
+            Action<ResourceBuilder> appResourceBuilder =
+                            resource => resource
+                                .AddTelemetrySdk()
+                                .AddService(Configuration.GetValue<string>("Otlp:ServiceName"));
+            
+            builder.Services.AddOpenTelemetry()
+                .ConfigureResource(appResourceBuilder)
+                .WithTracing(builder => builder
+                    .AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddSource("OPL_grafana_meilisearch")
+                    .AddOtlpExporter(options => options.Endpoint = new Uri(Configuration.GetValue<string>("Otlp:Endpoint")))
+                )
+                .WithMetrics(builder => builder
+                    .AddRuntimeInstrumentation()
+                    .AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddOtlpExporter(options => options.Endpoint = new Uri(Configuration.GetValue<string>("Otlp:Endpoint"))));
+
+            builder.Services.AddDbContext<DataContext>(options =>
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // Configure Serilog
+            builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration
+                .ReadFrom.Configuration(context.Configuration)
+                .WriteTo.OpenTelemetry(options =>
+                {
+                    options.Endpoint = $"{Configuration.GetValue<string>("Otlp:Endpoint")}/v1/logs";
+                    options.Protocol = Serilog.Sinks.OpenTelemetry.OtlpProtocol.Grpc;
+                    options.ResourceAttributes = new Dictionary<string, object>
+                    {
+                        { "service.name", Configuration.GetValue<string>("Otlp:ServiceName") }
+                    };
+                }));
+
+            builder.Services.AddHealthChecks();
+
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            // if (app.Environment.IsDevelopment())
+            // {
+                app.UseSwagger();
+                app.UseSwaggerUI( c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OPL_grafana_meilisearch v1") );
+            // }
+
+            app.UseCors();
+
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthorization();
+            app.MapControllers();
+            app.UseSerilogRequestLogging();
+
+            app.MapHealthChecks("/health", new HealthCheckOptions{
+
+                AllowCachingResponses = false,
+                ResultStatusCodes = {
+                    [HealthStatus.Healthy] = StatusCodes.Status200OK,
+                    [HealthStatus.Degraded] = StatusCodes.Status500InternalServerError,
+                    [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+                }
+            });
+
+            app.Run();
+        }
+    }
+} 
+
+
