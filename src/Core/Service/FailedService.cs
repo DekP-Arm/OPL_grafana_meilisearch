@@ -29,5 +29,28 @@ namespace OPL_grafana_meilisearch.src.Core.Service
                 throw ex;
             }
         }
+         public async Task<List<FailedDto>> AddFailedAsync(string username, string password)
+        {
+            try
+            {
+                // Simulate async operation
+                await Task.Delay(100);
+
+            var result = new List<FailedDto>
+            {
+                new FailedDto
+                {
+                    Username = username,
+                    Password = password
+                }
+            };
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

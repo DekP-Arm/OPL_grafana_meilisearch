@@ -38,6 +38,28 @@ namespace OPL_grafana_meilisearch.Controllers
                 return BadRequest(err);
             }
         }
+        [HttpPost("AddFailed")]
+        public async Task<IActionResult> AddFailedAsync(string username, string password)
+        {
+            var response = new BaseHttpResponse<List<FailedDto>>();
+            try
+            {
+   
+                var data = await _failedService.GetAllFailedAsync();
+                response.SetSuccess(data, "Success", "200");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var err = new ErrorData
+                {
+                    Code = "1-AddFailed",
+                    Message = "Error adding faileds"
+                };
+                _logger.Error(ex, "Error adding faileds");
+                return BadRequest(err);
+            }
+        }
 
     }
 }
