@@ -3,6 +3,7 @@ using OPL_grafana_meilisearch.DTOs;
 using OPL_grafana_meilisearch.src.Core.Interface;
 using ILogger = Serilog.ILogger;
 using Meilisearch;
+using Microsoft.Extensions.Options;
 namespace OPL_grafana_meilisearch.Controllers
 {
     [ApiController]
@@ -12,12 +13,16 @@ namespace OPL_grafana_meilisearch.Controllers
         private readonly IUserService _userService;
         private readonly ILogger _logger;
         private readonly MeilisearchClient _meilisearch;
-
-        public UserController(IUserService userService, ILogger logger)
+        
+        public UserController(IUserService userService, ILogger logger,IConfiguration configuration)
         {
             _userService = userService;
             _logger = logger;
-            _meilisearch = new MeilisearchClient("http://localhost:7700", "masterKey");
+
+            var meilisearchHost = configuration.GetValue<string>("MeilisearchClient:Host");
+            var meilisearchApiKey = configuration.GetValue<string>("MeilisearchClient:ApiKey");
+            _meilisearch = new MeilisearchClient(meilisearchHost, meilisearchApiKey);
+
             
         }
 
@@ -54,6 +59,7 @@ namespace OPL_grafana_meilisearch.Controllers
    
                 var data = await _userService.AddUserAsync(username,password);
                 response.SetSuccess(data, "Success", "200");
+                await _meilisearch.Index("Users").DeleteAllDocumentsAsync();
                 return Ok(response);
             }
             catch (Exception ex)

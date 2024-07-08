@@ -1341,3 +1341,61 @@ System.InvalidOperationException: An exception has been raised that is likely du
 2024-07-08 14:33:42.031 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1198.0349 ms
 2024-07-08 14:40:12.411 +07:00 [WRN] Failed to determine the https port for redirect.
 2024-07-08 14:40:13.885 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1441.2434 ms
+2024-07-08 15:01:45.791 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-07-08 15:01:47.397 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1569.0978 ms
+2024-07-08 15:04:31.741 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1423.6855 ms
+2024-07-08 15:05:52.065 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1262.8228 ms
+2024-07-08 15:07:17.496 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1327.5688 ms
+2024-07-08 15:10:15.880 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1252.3838 ms
+2024-07-08 15:13:31.174 +07:00 [INF] HTTP POST /api/User/AddUser responded 200 in 160.2742 ms
+2024-07-08 15:13:42.932 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1226.1923 ms
+2024-07-08 15:14:33.583 +07:00 [ERR] Error adding users
+Meilisearch.MeilisearchCommunicationError: CommunicationError
+ ---> System.Net.Http.HttpRequestException: Connection refused (localhost:7700)
+ ---> System.Net.Sockets.SocketException (61): Connection refused
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Meilisearch.MeilisearchMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Meilisearch.MeilisearchMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Meilisearch.Index.DeleteAllDocumentsAsync(CancellationToken cancellationToken)
+   at OPL_grafana_meilisearch.Controllers.UserController.AddUserAsync(String username, String password)
+2024-07-08 15:14:33.606 +07:00 [INF] HTTP POST /api/User/AddUser responded 400 in 146.0338 ms
+2024-07-08 15:14:40.984 +07:00 [ERR] Error adding users
+Meilisearch.MeilisearchCommunicationError: CommunicationError
+ ---> System.Net.Http.HttpRequestException: Connection refused (localhost:7700)
+ ---> System.Net.Sockets.SocketException (61): Connection refused
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Sockets.Socket.<ConnectAsync>g__WaitForConnectWithCancellation|285_0(AwaitableSocketAsyncEventArgs saea, ValueTask connectTask, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.AddHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Meilisearch.MeilisearchMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Meilisearch.MeilisearchMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Meilisearch.Index.DeleteAllDocumentsAsync(CancellationToken cancellationToken)
+   at OPL_grafana_meilisearch.Controllers.UserController.AddUserAsync(String username, String password)
+2024-07-08 15:14:40.989 +07:00 [INF] HTTP POST /api/User/AddUser responded 400 in 110.8227 ms
+2024-07-08 15:14:55.284 +07:00 [INF] HTTP POST /api/User/AddUser responded 200 in 128.6275 ms
+2024-07-08 15:15:06.170 +07:00 [INF] HTTP GET /api/User/GetAllUser responded 200 in 1406.1572 ms
