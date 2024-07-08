@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj": {}
+    "/Users/tirawat.pst/Documents/coding/dotNet/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj": {}
   },
   "projects": {
-    "/Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj": {
+    "/Users/tirawat.pst/Documents/coding/dotNet/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj",
+        "projectUniqueName": "/Users/tirawat.pst/Documents/coding/dotNet/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj",
         "projectName": "OPL_grafana_meilisearch",
-        "projectPath": "/Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj",
-        "packagesPath": "/Users/comnarin/.nuget/packages/",
-        "outputPath": "/Users/comnarin/Documents/TCC-tech/OPL_grafana_meilisearch/obj/",
+        "projectPath": "/Users/tirawat.pst/Documents/coding/dotNet/OPL_grafana_meilisearch/OPL_grafana_meilisearch.csproj",
+        "packagesPath": "/Users/tirawat.pst/.nuget/packages/",
+        "outputPath": "/Users/tirawat.pst/Documents/coding/dotNet/OPL_grafana_meilisearch/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/comnarin/.nuget/NuGet/NuGet.Config"
+          "/Users/tirawat.pst/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
