@@ -16,6 +16,17 @@ services:
       - "9115:9115"
     networks:
       - otel
+  meilisearch:
+    image: getmeili/meilisearch:v1.9
+    ports:
+      - "7700:7700"
+    environment:
+      - MEILI_ENV=development
+      - MEILI_MASTER_KEY=masterKey
+    volumes:
+      - ./meili_data:/meili_data
+    networks:
+      otel:
 
   prometheus:
     image: prom/prometheus:v2.53.0

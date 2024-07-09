@@ -34,6 +34,7 @@ namespace OPL_grafana_meilisearch.Controllers
             {
                 var data = await _userService.GetAllUserAsync();
                 response.SetSuccess(data, "Success", "200");
+                await _meilisearch.Index("Users").DeleteAllDocumentsAsync();
                 var index = _meilisearch.Index("Users");
                 await index.AddDocumentsAsync(data);
                 return Ok(response);
