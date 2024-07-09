@@ -14,11 +14,13 @@ namespace OPL_grafana_meilisearch.Controllers
         private readonly ILogger _logger;
         private readonly MeilisearchClient _meilisearch;
 
-        public FailedController(IFailedService failedService, ILogger logger)
+        public FailedController(IFailedService failedService, ILogger logger,IConfiguration configuration)
         {
             _failedService = failedService;
             _logger = logger;
-            _meilisearch = new MeilisearchClient("http://localhost:7700", "masterKey");
+            var meilisearchHost = configuration.GetValue<string>("MeilisearchClient:Host");
+            var meilisearchApiKey = configuration.GetValue<string>("MeilisearchClient:ApiKey");
+            _meilisearch = new MeilisearchClient(meilisearchHost, meilisearchApiKey);
         }
 
         [HttpGet("GetAllFailed")]
@@ -35,10 +37,26 @@ namespace OPL_grafana_meilisearch.Controllers
             }
             catch (Exception ex)
             {
-                ErrorData err = new ErrorData();
-                err.Code = "1-GetAllFaileds";
-                err.Message = "Error getting Faileds";
-                _logger.Error(ex, "Error getting All Faileds");
+                var err = new ErrorData
+                {
+                    Code = "1-GetAllFaileds",
+                    Message = "Error getting All Faileds",
+                };
+                DateTime currentDateTime = DateTime.Now;
+                var formattedDateTime = currentDateTime.ToString("dddd, dd MMMM yyyy HH:mm:ss");
+                var error_log = new[]
+                {
+                    new ErrorLogMeilisearchDto
+                    {
+                        CodeId = Guid.NewGuid().ToString("N"),
+                        Api = "1-GetAllFaileds",
+                        Message = "Error getting All Faileds",
+                        dateTime = formattedDateTime,
+                    }
+                };
+                var index = _meilisearch.Index("Error_log");
+                await index.AddDocumentsAsync(error_log);
+                _logger.Error(ex, "Error getting All Users");
                 return BadRequest(err);
             }
         }

@@ -34,9 +34,6 @@ namespace OPL_grafana_meilisearch.Controllers
             {
                 var data = await _userService.GetAllUserAsync();
                 response.SetSuccess(data, "Success", "200");
-                await _meilisearch.Index("Users").DeleteAllDocumentsAsync();
-                var index = _meilisearch.Index("Users");
-                await index.AddDocumentsAsync(data);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -46,6 +43,16 @@ namespace OPL_grafana_meilisearch.Controllers
                     Code = "1-GetAllUsers",
                     Message = "Error getting Users"
                 };
+                var error_log = new[]
+                {
+                    new ErrorLogMeilisearchDto
+                    {
+                        CodeId = "1-GetAllUsers",
+                        Message = "Error getting Users",
+                    }
+                };
+                var index = _meilisearch.Index("Error_log");
+                await index.AddDocumentsAsync(error_log);
                 _logger.Error(ex, "Error getting All Users");
                 return BadRequest(err);
             }

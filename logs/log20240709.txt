@@ -6,3 +6,12 @@
 2024-07-09 11:04:48.616 +07:00 [INF] HTTP GET /api/user/getalluser responded 200 in 1810.9306 ms
 2024-07-09 11:05:52.512 +07:00 [INF] HTTP GET /api/user/getalluser responded 200 in 1393.3544 ms
 2024-07-09 11:06:19.801 +07:00 [INF] Application is shutting down...
+2024-07-09 15:51:45.084 +07:00 [INF] Now listening on: http://localhost:5298
+2024-07-09 15:51:45.131 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-07-09 15:51:45.131 +07:00 [INF] Hosting environment: Development
+2024-07-09 15:51:45.131 +07:00 [INF] Content root path: /Users/saran/Desktop/tcc/OPL_grafana_meilisearch
+2024-07-09 15:51:52.276 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-07-09 15:51:54.754 +07:00 [INF] HTTP GET /api/user/getalluser responded 200 in 2430.2073 ms
+2024-07-09 15:52:14.584 +07:00 [INF] HTTP GET /api/user/getalluser responded 200 in 1208.1637 ms
+2024-07-09 15:52:43.296 +07:00 [INF] HTTP GET /api/user/getalluser responded 200 in 1143.5415 ms
+2024-07-09 16:14:04.415 +07:00 [INF] Application is shutting down...
