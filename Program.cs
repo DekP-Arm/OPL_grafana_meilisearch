@@ -74,7 +74,7 @@ namespace OPL_grafana_meilisearch
                 .WithTracing(builder => builder
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
-                    .AddSource("OPL_grafana_meilisearch")
+                    .AddSource("APITracing")
                     .AddOtlpExporter(options => options.Endpoint = new Uri(Configuration.GetValue<string>("Otlp:Endpoint")))
                 )
                 .WithMetrics(builder => builder
@@ -97,7 +97,7 @@ namespace OPL_grafana_meilisearch
                     {
                         { "service.name", Configuration.GetValue<string>("Otlp:ServiceName") }
                     };
-                }));
+                }).WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day));
 
             builder.Services.AddHealthChecks();
 

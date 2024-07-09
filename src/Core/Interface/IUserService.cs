@@ -6,5 +6,7 @@ namespace OPL_grafana_meilisearch.src.Core.Interface
     {
         Task<List<UserDto>> GetAllUserAsync();
         Task<List<UserDto>> AddUserAsync(string username,string password);
+
+        
     }
 }
