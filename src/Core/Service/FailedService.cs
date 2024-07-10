@@ -46,13 +46,13 @@ namespace OPL_grafana_meilisearch.src.Core.Service
                 }
             }
         }
-         public async Task<List<FailedDto>> AddFailedAsync(string username, string password)
+          public async Task<List<FailedDto>> AddFailedAsync(string username, string password)
         {
             try
             {
                 // Simulate async operation
                 await Task.Delay(100);
-
+                var failedData = await _failedRepository.GetAllFailedAsync();
             var result = new List<FailedDto>
             {
                 new FailedDto
@@ -61,7 +61,6 @@ namespace OPL_grafana_meilisearch.src.Core.Service
                     Password = password
                 }
             };
-
                 return result;
             }
             catch (Exception ex)
