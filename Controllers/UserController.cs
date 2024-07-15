@@ -20,27 +20,35 @@ namespace OPL_grafana_meilisearch.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly MeilisearchClient _meilisearch;
 
+        private readonly VaultService _vaultService;
+
         private static readonly ActivitySource activitySource = new ActivitySource("APITracing");
 
         // Extracts context in HTTP headers and injects context into HTTP headers.
         private static readonly TextMapPropagator Propagator = Propagators.DefaultTextMapPropagator;
 
-        private readonly string meilisearchHost ="";
+        private readonly string meilisearchHost;
 
-        private readonly string meilisearchApiKey= "";
+        private readonly string meilisearchApiKey;
 
 
 
 
     
         
-        public UserController(IUserService userService, ILogger<UserController> logger,IConfiguration configuration)
+        public UserController(IUserService userService, ILogger<UserController> logger,VaultService vaultService)
         {
             _userService = userService;
             _logger = logger;
+            _vaultService = vaultService;
 
-            meilisearchHost = configuration.GetValue<string>("MeilisearchClient:Host");
-            meilisearchApiKey = configuration.GetValue<string>("MeilisearchClient:ApiKey");
+            // meilisearchHost = configuration.GetValue<string>("MeilisearchClient:Host");
+            // meilisearchApiKey = configuration.GetValue<string>("MeilisearchClient:ApiKey");
+
+            var secret = _vaultService.GetSecretAsync("meilisearch-client").Result;
+            meilisearchHost = secret.Data.Data["Host"].ToString();
+            meilisearchApiKey = secret.Data.Data["ApiKey"].ToString();
+
             _meilisearch = new MeilisearchClient(meilisearchHost, meilisearchApiKey);
 
             

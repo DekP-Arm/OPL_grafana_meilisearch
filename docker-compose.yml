@@ -117,6 +117,17 @@ services:
       - "9200:55679"  # zpages
     networks:
       otel:
+  vault:
+    image: vault:1.13.3
+    container_name: vault
+    ports:
+      - "8200:8200"
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=root
+    networks:
+      otel:
+    volumes:
+      - vault-data:/vault/file
 
 networks:
   otel:
@@ -126,3 +137,5 @@ volumes:
   prometheus:
   tempo:
   grafana-data:
+  meili_data:
+  vault-data:

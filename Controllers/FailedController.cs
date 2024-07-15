@@ -16,6 +16,8 @@ namespace OPL_grafana_meilisearch.Controllers
     {
         private readonly IFailedService _failedService;
         private readonly ILogger<FailedController> _logger;
+
+        private readonly VaultService _vaultService;
         private readonly MeilisearchClient _meilisearch;
 
         private static readonly ActivitySource activitySource = new ActivitySource("APITracing");
@@ -27,12 +29,18 @@ namespace OPL_grafana_meilisearch.Controllers
 
         private readonly string meilisearchApiKey= "";
 
-        public FailedController(IFailedService failedService, ILogger<FailedController> logger, IConfiguration configuration)
+        public FailedController(IFailedService failedService, ILogger<FailedController> logger, VaultService vaultService)
         {
             _failedService = failedService;
             _logger = logger;
-            meilisearchHost = configuration.GetValue<string>("MeilisearchClient:Host");
-            meilisearchApiKey = configuration.GetValue<string>("MeilisearchClient:ApiKey");
+            _vaultService = vaultService;
+
+            // meilisearchHost = configuration.GetValue<string>("MeilisearchClient:Host");
+            // meilisearchApiKey = configuration.GetValue<string>("MeilisearchClient:ApiKey");
+
+            var secret = _vaultService.GetSecretAsync("meilisearch-client").Result;
+            meilisearchHost = secret.Data.Data["Host"].ToString();
+            meilisearchApiKey = secret.Data.Data["ApiKey"].ToString();
             _meilisearch = new MeilisearchClient(meilisearchHost, meilisearchApiKey);
         }
 

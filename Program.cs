@@ -23,6 +23,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OpenTelemetry;
 
+using VaultSharp;
+
+using VaultSharp.V1.AuthMethods.Token;
 
 
 namespace OPL_grafana_meilisearch
@@ -45,6 +48,15 @@ namespace OPL_grafana_meilisearch
                                 .AllowAnyHeader();
                 });
             });
+             // Add Vault configuration
+            var vaultClient = new VaultClient(new VaultClientSettings(
+                Configuration.GetValue<string>("Vault:Address"),
+                new TokenAuthMethodInfo(Configuration.GetValue<string>("Vault:Token"))
+            ));
+
+            builder.Services.AddSingleton<IVaultClient>(vaultClient);
+            builder.Services.AddSingleton<VaultService>();
+
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
