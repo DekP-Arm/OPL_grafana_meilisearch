@@ -1,0 +1,36 @@
+/ # vault operator init
+Unseal Key 1: bIXCoFcg7omcfE1B/7Xnsleg7lyyVUrzsezVrhEYYucv
+Unseal Key 2: aPqfv5WxpqNnrcQ9kIrrsAj28gI9U3E58gQkPNqHN/9o
+Unseal Key 3: CObjG8znebFWkP8tpudh35kv23rNGDGq67uY+Lbp93J2
+Unseal Key 4: 1tTyNkMoxylCml4ibDHcx2lPgwO05zoJRFeiq08NyOrA
+Unseal Key 5: eIFzupELN+6MLE0o2RZfzjhxs21a77oAMJX4nXYjnC55
+
+Initial Root Token: hvs.zJG5a2Tyu2e5TxCohpNPmXQe
+
+role_id    c298e70e-1ccf-9d08-3c24-f13a02d3ba12
+secret_id  700e3a1f-470b-3a67-7d5b-87d59d3bcf22
+
+
+
+// add policy for approle
+vault write auth/approle/role/opl_grafana_meilisearch token_policies="opl_grafana_meilisearch"
+
+vault read auth/approle/role/opl_grafana_meilisearch/role-id
+
+vault write -f auth/approle/role/opl_grafana_meilisearch/secret-id
+
+// add policy for github
+vault write auth/github/config organization=DekP-Arm
+
+vault write auth/github/map/teams/dev value=dev-policy
+
+
+//github token test
+github = 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
+
+
+
+# ให้สิทธิ์ในการจัดการ auth methods
+path "auth/approle/*" {
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}

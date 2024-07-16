@@ -26,6 +26,7 @@ using OpenTelemetry;
 using VaultSharp;
 
 using VaultSharp.V1.AuthMethods.Token;
+using VaultSharp.V1.AuthMethods.AppRole;
 
 
 namespace OPL_grafana_meilisearch
@@ -51,7 +52,10 @@ namespace OPL_grafana_meilisearch
              // Add Vault configuration
             var vaultClient = new VaultClient(new VaultClientSettings(
                 Configuration.GetValue<string>("Vault:Address"),
-                new TokenAuthMethodInfo(Configuration.GetValue<string>("Vault:Token"))
+                new AppRoleAuthMethodInfo(
+                    Configuration.GetValue<string>("Vault:RoleId"), 
+                    Configuration.GetValue<string>("Vault:SecretId")
+                )
             ));
 
             builder.Services.AddSingleton<IVaultClient>(vaultClient);

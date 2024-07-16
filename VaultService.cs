@@ -12,6 +12,6 @@ public class VaultService
 
     public async Task<Secret<SecretData>> GetSecretAsync(string path)
     {
-        return await _vaultClient.V1.Secrets.KeyValue.V2.ReadSecretAsync(path, mountPoint: "secret");
+        return await _vaultClient.V1.Secrets.KeyValue.V2.ReadSecretAsync(path, mountPoint: "opl_grafana_meilisearch");
     }
 }
