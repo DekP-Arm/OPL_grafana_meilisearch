@@ -15,6 +15,7 @@ namespace OPL_grafana_meilisearch.Controllers
     public class FailedController : Controller
     {
         private readonly IFailedService _failedService;
+        private readonly TokenService _tokenservice;
         private readonly ILogger<FailedController> _logger;
         private readonly MeilisearchClient _meilisearch;
 
@@ -27,12 +28,14 @@ namespace OPL_grafana_meilisearch.Controllers
 
         private readonly string meilisearchApiKey= "";
 
-        public FailedController(IFailedService failedService, ILogger<FailedController> logger, IConfiguration configuration)
+        public FailedController(IFailedService failedService, ILogger<FailedController> logger, TokenService tokenservice)
         {
             _failedService = failedService;
             _logger = logger;
-            meilisearchHost = configuration.GetValue<string>("MeilisearchClient:Host");
-            meilisearchApiKey = configuration.GetValue<string>("MeilisearchClient:ApiKey");
+            _tokenservice = tokenservice;
+            var secrets = _tokenservice.GetSecretAsync().Result;
+            meilisearchHost = secrets["MEILISEARCHCLIENT__HOST"];
+            meilisearchApiKey = secrets["MEILISEARCHCLIENT__APIKEY"];
             _meilisearch = new MeilisearchClient(meilisearchHost, meilisearchApiKey);
         }
 
@@ -84,7 +87,8 @@ namespace OPL_grafana_meilisearch.Controllers
                             {
                                 new ErrorLogMeilisearchDto
                                 {
-                                    CodeId = Guid.NewGuid().ToString("N"),
+                                    Id = Guid.NewGuid().ToString("N"),
+                                    CodeError = StatusCodes.Status500InternalServerError,
                                     Api = "1-GetAllFaileds",
                                     Message = "Error getting All Faileds",
                                     dateTime = formattedDateTime,

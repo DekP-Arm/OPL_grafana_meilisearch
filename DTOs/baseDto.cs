@@ -1,4 +1,5 @@
 
+
 namespace OPL_grafana_meilisearch.DTOs
 {
      public class BaseHttpResponse<T>
@@ -22,6 +23,11 @@ namespace OPL_grafana_meilisearch.DTOs
             this.ResponseMessage = message;
             this.ResponseCode = responseCode;
             this.Data = default(T);
+        }
+
+        internal void SetSuccess(Task<string> data_secret, string v1, string v2)
+        {
+            throw new NotImplementedException();
         }
     }
     public class PageDataResponse<T>

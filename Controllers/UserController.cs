@@ -17,6 +17,8 @@ namespace OPL_grafana_meilisearch.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly TokenService _tokenService;
+
         private readonly ILogger<UserController> _logger;
         private readonly MeilisearchClient _meilisearch;
 
@@ -34,13 +36,14 @@ namespace OPL_grafana_meilisearch.Controllers
 
     
         
-        public UserController(IUserService userService, ILogger<UserController> logger,IConfiguration configuration)
+        public UserController(IUserService userService, ILogger<UserController> logger,TokenService tokenService)
         {
             _userService = userService;
             _logger = logger;
-
-            meilisearchHost = configuration.GetValue<string>("MeilisearchClient:Host");
-            meilisearchApiKey = configuration.GetValue<string>("MeilisearchClient:ApiKey");
+            _tokenService = tokenService;
+            var secrets = _tokenService.GetSecretAsync().Result;
+            meilisearchHost = secrets["MEILISEARCHCLIENT__HOST"];
+            meilisearchApiKey = secrets["MEILISEARCHCLIENT__APIKEY"];
             _meilisearch = new MeilisearchClient(meilisearchHost, meilisearchApiKey);
 
             
@@ -67,6 +70,10 @@ namespace OPL_grafana_meilisearch.Controllers
 
                         // Call the service
                         var data = await _userService.GetAllUserAsync();
+
+
+                        var data_secret = await _tokenService.GetSecretAsync();
+                        Console.WriteLine(data_secret);
                         response.SetSuccess(data, "Success", "200");
                     }
                     return Ok(response);
@@ -89,12 +96,17 @@ namespace OPL_grafana_meilisearch.Controllers
 
                     using (var meilisearchActivity = activitySource.StartActivity("Send Data to Meilisearch", ActivityKind.Client))
                         {
+                            DateTime currentDateTime = DateTime.Now;
+                            var formattedDateTime = currentDateTime.ToString("dddd, dd MMMM yyyy HH:mm:ss");
                             var error_log = new[]
                             {
                                 new ErrorLogMeilisearchDto
                                 {
-                                    CodeId = "1-GetAllUsers",
-                                    Message = "Error getting Users",
+                                    Id = Guid.NewGuid().ToString("N"),
+                                    CodeError = StatusCodes.Status500InternalServerError,
+                                    Api = "1-GetAllFaileds",
+                                    Message = "Error getting All Faileds",
+                                    dateTime = formattedDateTime,
                                 }
                             };
                             var index = _meilisearch.Index("Error_log");
@@ -156,5 +168,25 @@ namespace OPL_grafana_meilisearch.Controllers
                 }
             }
         }
+
+        [HttpGet("GetUser")]
+        public async Task<IActionResult> GetAsync()
+        {
+            var response = new BaseHttpResponse<Dictionary<string, string>>();
+            try
+            {
+                var data_secret = await _tokenService.GetSecretAsync();
+                Console.WriteLine(data_secret);
+
+                response.SetSuccess(data_secret, "Success", "200");
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
+
+
     }
 }

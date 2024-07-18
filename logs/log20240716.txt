@@ -1,0 +1,93 @@
+2024-07-16 11:15:00.294 +07:00 [INF] Now listening on: http://localhost:5298
+2024-07-16 11:15:00.333 +07:00 [INF] Application started. Press Ctrl+C to shu2024-07-2024-07-16 11:15:00.333 +07:00 [INF] Hosting environment: Development
+2024-07-16 11:15:00.333 +07:00 [INF] Content root path: /Users/saran/Desktop/2024-07-16 11:15:00.333 +07:2024-07-16 11:15:20.040 +07:00 [INF] Application is shutting down...
+isearch
+2024-07-16 11:15:20.040 +07:00 [INF] Application is shutting down...
+2024-07-16 11:15:28.289 +07:00 [INF] Now listening on: http://localhost:5298
+2024-07-16 11:15:28.320 +07:00 [INF] Application started. Press Ctrl+C to shu2024-07-2024-07-16 11:15:28.321 +07:00 [INF] Hosting environment: Development
+2024-07-16 11:15:28.321 +07:00 [INF] Content root path: /Users/saran/Desktop/2024-07-16 11:15:28.321 +07:2024-07-16 11:15:55.383 +07:00 [INF] Application is shutting down...
+isearch
+2024-07-16 11:15:55.383 +07:00 [INF] Application is shutting down...
+2024-07-16 19:28:43.925 +07:00 [INF] Now listening on: http://localhost:5298
+2024-07-16 19:28:43.999 +07:00 [INF] Application started. Press Ctrl+C to shu2024-07-2024-07-16 19:28:44.000 +07:00 [INF] Hosting environment: Development
+2024-07-16 19:28:44.001 +07:00 [INF] Content root path: /Users/saran/Desktop/2024-07-16 19:28:44.001 +07:2024-07-16 19:29:12.731 +07:00 [WRN] Failed to determine the https port for r2024-07-12024-07-16 19:29:12.875 +07:00 [ERR] HTTP GET /api/failed/getallfailed respon2024-07-16 19:29:12.875 +07:00 [ERR] HTTP GET /api/failed/getallfailed responded 500 in 121.4542 ms
+System.UriFormatException: Invalid URI: The format of the URI could not be determined.
+   at System.Uri.CreateThis(String uri, Boolean dontEscape, UriKind uriKind, UriCreationOptions& creationOptions)
+   at System.Uri..ctor(String uriString)
+   at Meilisearch.Extensions.StringExtensions.ToSafeUri(String uri)
+   at Meilisearch.MeilisearchClient..ctor(String url, String apiKey)
+   at OPL_grafana_meilisearch.Controllers.FailedController..ctor(IFailedService failedService, ILogger`1 logger, IConfiguration configuration) in /Users/saran/Desktop/tcc/OPL_grafana_meilisearch/Controllers/FailedController.cs:line 36
+   at lambda_method10(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at2024-07-16 19:29:12.881 +07:00 [ERR] An unhandled exception has occurred whil2024-07-16 19:29:12.881 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+System.UriFormatException: Invalid URI: The format of the URI could not be determined.
+   at System.Uri.CreateThis(String uri, Boolean dontEscape, UriKind uriKind, UriCreationOptions& creationOptions)
+   at System.Uri..ctor(String uriString)
+   at Meilisearch.Extensions.StringExtensions.ToSafeUri(String uri)
+   at Meilisearch.MeilisearchClient..ctor(String url, String apiKey)
+   at OPL_grafana_meilisearch.Controllers.FailedController..ctor(IFailedService failedService, ILogger`1 logger, IConfiguration configuration) in /Users/saran/Desktop/tcc/OPL_grafana_meilisearch/Controllers/FailedController.cs:line 36
+   at lambda_method10(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.2024-07-16 19:29:52.574 +07:00 [INF] Application is shutting down...
+ontext)
+2024-07-16 19:29:52.574 +07:00 [INF] Application is shutting down...
+2024-07-16 19:42:52.582 +07:00 [INF] Now listening on: http://localhost:5298
+2024-07-16 19:42:52.630 +07:00 [INF] Application started. Press Ctrl+C to shu2024-07-2024-07-16 19:42:52.631 +07:00 [INF] Hosting environment: Development
+2024-07-16 19:42:52.631 +07:00 [INF] Content root path: /Users/saran/Desktop/2024-07-16 19:42:52.631 +07:2024-07-16 19:43:47.548 +07:00 [WRN] Failed to determine the https port for r2024-07-12024-07-16 19:43:47.685 +07:00 [ERR] HTTP GET /api/failed/getallfailed respon2024-07-16 19:43:47.685 +07:00 [ERR] HTTP GET /api/failed/getallfailed responded 500 in 110.7749 ms
+System.UriFormatException: Invalid URI: The format of the URI could not be determined.
+   at System.Uri.CreateThis(String uri, Boolean dontEscape, UriKind uriKind, UriCreationOptions& creationOptions)
+   at System.Uri..ctor(String uriString)
+   at Meilisearch.Extensions.StringExtensions.ToSafeUri(String uri)
+   at Meilisearch.MeilisearchClient..ctor(String url, String apiKey)
+   at OPL_grafana_meilisearch.Controllers.FailedController..ctor(IFailedService failedService, ILogger`1 logger, IConfiguration configuration) in /Users/saran/Desktop/tcc/OPL_grafana_meilisearch/Controllers/FailedController.cs:line 36
+   at lambda_method10(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at2024-07-16 19:43:47.691 +07:00 [ERR] An unhandled exception has occurred whil2024-07-16 19:43:47.691 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+System.UriFormatException: Invalid URI: The format of the URI could not be determined.
+   at System.Uri.CreateThis(String uri, Boolean dontEscape, UriKind uriKind, UriCreationOptions& creationOptions)
+   at System.Uri..ctor(String uriString)
+   at Meilisearch.Extensions.StringExtensions.ToSafeUri(String uri)
+   at Meilisearch.MeilisearchClient..ctor(String url, String apiKey)
+   at OPL_grafana_meilisearch.Controllers.FailedController..ctor(IFailedService failedService, ILogger`1 logger, IConfiguration configuration) in /Users/saran/Desktop/tcc/OPL_grafana_meilisearch/Controllers/FailedController.cs:line 36
+   at lambda_method10(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.2024-07-16 19:45:58.752 +07:00 [INF] Application is shutting down...
+ontext)
+2024-07-16 19:45:58.752 +07:00 [INF] Application is shutting down...
+2024-07-16 19:46:10.808 +07:00 [INF] Now listening on: http://localhost:5298
+2024-07-16 19:46:10.852 +07:00 [INF] Application started. Press Ctrl+C to shu2024-07-2024-07-16 19:46:10.852 +07:00 [INF] Hosting environment: Development
+2024-07-16 19:46:10.852 +07:00 [INF] Content root path: /Users/saran/Desktop/2024-07-16 19:46:10.852 +07:00 [INF] Content root path: /Users/saran/Desktop/tcc/OPL_grafana_meilisearch
