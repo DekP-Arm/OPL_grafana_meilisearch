@@ -22,6 +22,8 @@ namespace OPL_grafana_meilisearch.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly MeilisearchClient _meilisearch;
 
+        private readonly IConfiguration _configuration;
+
         private static readonly ActivitySource activitySource = new ActivitySource("APITracing");
 
         // Extracts context in HTTP headers and injects context into HTTP headers.
@@ -36,15 +38,15 @@ namespace OPL_grafana_meilisearch.Controllers
 
     
         
-        public UserController(IUserService userService, ILogger<UserController> logger,TokenService tokenService)
+        public UserController(IUserService userService, ILogger<UserController> logger,IConfiguration configuration,TokenService tokenService)
         {
             _userService = userService;
             _logger = logger;
-            _tokenService = tokenService;
-            var secrets = _tokenService.GetSecretAsync().Result;
-            meilisearchHost = secrets["MEILISEARCHCLIENT__HOST"];
-            meilisearchApiKey = secrets["MEILISEARCHCLIENT__APIKEY"];
-            _meilisearch = new MeilisearchClient(meilisearchHost, meilisearchApiKey);
+            _configuration= configuration;
+            _tokenService= tokenService;
+            // meilisearchHost = configuration.GetValue<string>("MeilisearchClient:Host");
+            // meilisearchApiKey = configuration.GetValue<string>("MeilisearchClient:ApiKey");
+            // _meilisearch = new MeilisearchClient(meilisearchHost, meilisearchApiKey);
 
             
         }
@@ -170,22 +172,22 @@ namespace OPL_grafana_meilisearch.Controllers
         }
 
         [HttpGet("GetUser")]
-        public async Task<IActionResult> GetAsync()
+    public async Task<IActionResult> GetAsync()
+    {
+        var response = new BaseHttpResponse<Dictionary<string, string>>();
+        try
         {
-            var response = new BaseHttpResponse<Dictionary<string, string>>();
-            try
-            {
-                var data_secret = await _tokenService.GetSecretAsync();
-                Console.WriteLine(data_secret);
+            var data_secret = await _tokenService.GetSecretAsync();
+            Console.WriteLine(data_secret);
 
-                response.SetSuccess(data_secret, "Success", "200");
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex);
-            }
+            response.SetSuccess(data_secret, "Success", "200");
+            return Ok(response);
         }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex);
+        }
+    }
 
 
     }

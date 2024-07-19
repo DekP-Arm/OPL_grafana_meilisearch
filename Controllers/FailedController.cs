@@ -3,10 +3,10 @@ using OPL_grafana_meilisearch.DTOs;
 using OPL_grafana_meilisearch.src.Core.Interface;
 using Microsoft.Extensions.Logging;
 using Meilisearch;
-
 using System.Diagnostics;
 using OpenTelemetry;
 using OpenTelemetry.Context.Propagation;
+using Newtonsoft.Json;
 
 namespace OPL_grafana_meilisearch.Controllers
 {
@@ -18,25 +18,17 @@ namespace OPL_grafana_meilisearch.Controllers
         private readonly TokenService _tokenservice;
         private readonly ILogger<FailedController> _logger;
         private readonly MeilisearchClient _meilisearch;
-
+        private readonly IConfiguration _configuration;
         private static readonly ActivitySource activitySource = new ActivitySource("APITracing");
-
-        // Extracts context in HTTP headers and injects context into HTTP headers.
         private static readonly TextMapPropagator Propagator = Propagators.DefaultTextMapPropagator;
-
         private readonly string meilisearchHost ="";
-
         private readonly string meilisearchApiKey= "";
 
-        public FailedController(IFailedService failedService, ILogger<FailedController> logger, TokenService tokenservice)
+        public FailedController(IFailedService failedService, IConfiguration configuration, ILogger<FailedController> logger)
         {
             _failedService = failedService;
             _logger = logger;
-            _tokenservice = tokenservice;
-            var secrets = _tokenservice.GetSecretAsync().Result;
-            meilisearchHost = secrets["MEILISEARCHCLIENT__HOST"];
-            meilisearchApiKey = secrets["MEILISEARCHCLIENT__APIKEY"];
-            _meilisearch = new MeilisearchClient(meilisearchHost, meilisearchApiKey);
+            _configuration = configuration;
         }
 
         [HttpGet("GetAllFailed")]
@@ -53,16 +45,13 @@ namespace OPL_grafana_meilisearch.Controllers
                     
                     using (var failServiceActivity = activitySource.StartActivity("Call FailService", ActivityKind.Internal))
                     {
-                        // Tag the activity with the name of the service and the method being called
                         failServiceActivity?.SetTag("internal.service.name", "FailedService");
                         failServiceActivity?.SetTag("internal.service.method", "GetAllUserAsync");
 
-                        // Call the service
                         var data = await _failedService.GetAllFailedAsync();
                         response.Data = data;
                     }
                     return Ok(response);
-
                 }
             }
             catch (Exception ex)
@@ -72,35 +61,43 @@ namespace OPL_grafana_meilisearch.Controllers
                     activity.SetTag("error", true);
                     activity.SetTag("error.message", ex.Message);
                     activity.SetTag("error.stacktrace", ex.StackTrace);
+
                     var err = new ErrorData
                     {
                         Code = "1-GetAllUsers",
                         Message = "Error getting Users"
                     };
+
                     _logger.LogError(ex, "Error getting users");
 
+                    var meilisearchHost = _configuration.GetValue<string>("MeilisearchClient:Host");
+                    var meilisearchApiKey = _configuration.GetValue<string>("MeilisearchClient:ApiKey");
+
+                    var _meilisearch = new MeilisearchClient(meilisearchHost, meilisearchApiKey);
+
                     using (var meilisearchActivity = activitySource.StartActivity("Send Data to Meilisearch", ActivityKind.Client))
+                    {
+                        DateTime currentDateTime = DateTime.Now;
+                        var formattedDateTime = currentDateTime.ToString("dddd, dd MMMM yyyy HH:mm:ss");
+                        var error_log = new[]
                         {
-                            DateTime currentDateTime = DateTime.Now;
-                            var formattedDateTime = currentDateTime.ToString("dddd, dd MMMM yyyy HH:mm:ss");
-                            var error_log = new[]
+                            new ErrorLogMeilisearchDto
                             {
-                                new ErrorLogMeilisearchDto
-                                {
-                                    Id = Guid.NewGuid().ToString("N"),
-                                    CodeError = StatusCodes.Status500InternalServerError,
-                                    Api = "1-GetAllFaileds",
-                                    Message = "Error getting All Faileds",
-                                    dateTime = formattedDateTime,
-                                }
-                            };
-                            var index = _meilisearch.Index("Error_log");
-                            await index.AddDocumentsAsync(error_log);
-                        }
+                                Id = Guid.NewGuid().ToString("N"),
+                                CodeError = StatusCodes.Status500InternalServerError,
+                                Api = "1-GetAllFaileds",
+                                Message = "Error getting All Faileds",
+                                dateTime = formattedDateTime,
+                            }
+                        };
+                        var index = _meilisearch.Index("Error_log");
+                        await index.AddDocumentsAsync(error_log);
+                    }
                     return StatusCode(StatusCodes.Status500InternalServerError, err);
                 }
             }
         }
+
         [HttpPost("AddFailed")]
         public async Task<IActionResult> AddFailedAsync(string username, string password)
         {
@@ -113,17 +110,14 @@ namespace OPL_grafana_meilisearch.Controllers
                     activity?.SetTag("http.method", "POST");
                     activity?.SetTag("http.url", "/api/failed/AddFailedAsync");
 
-
                     using (var userServiceActivity = activitySource.StartActivity("Call FailedService", ActivityKind.Internal))
                     {
-                        // Tag the activity with the name of the service and the method being called
                         userServiceActivity?.SetTag("internal.service.name", "FailedService");
                         userServiceActivity?.SetTag("internal.service.method", "AddFailedAsync");
 
                         var data = await _failedService.AddFailedAsync(username,password);
                     }
                     return Ok(response);
-
                 }
             }
             catch (Exception ex)
@@ -143,15 +137,13 @@ namespace OPL_grafana_meilisearch.Controllers
                     _logger.LogError(ex, "Error adding users");
 
                     using (var meilisearchActivity = activitySource.StartActivity("Send Data to Meilisearch", ActivityKind.Client))
-                        {
-
-                        }
-
+                    {
+                        // เพิ่มโค้ดสำหรับการบันทึกข้อผิดพลาดใน Meilisearch ที่นี่
+                    }
                     
                     return StatusCode(StatusCodes.Status500InternalServerError, err);
                 }
             }
         }
-
     }
 }

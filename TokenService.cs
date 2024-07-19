@@ -15,14 +15,23 @@ public class TokenService
     public TokenService(IHttpClientFactory httpClientFactory, IConfiguration configuration)
     {
         _httpClientFactory = httpClientFactory;
-        _configuration = configuration;
+        _configuration = configuration; // Initialize _configuration
+
+        // Ensure _configuration is not null
+        if (_configuration == null)
+        {
+            throw new ArgumentNullException(nameof(configuration));
+        }
     }
 
     public async Task<string> RetrieveAndStoreTokenAsync()
     {
         var httpClient = _httpClientFactory.CreateClient();
 
-        var loginRequest = new HttpRequestMessage(HttpMethod.Post, "http://backend:8090/api/v1/auth/universal-auth/login");
+        var loginRequest = new HttpRequestMessage(HttpMethod.Post, "http://infisical-backend:8080/api/v1/auth/universal-auth/login");
+        
+        //var loginRequest = new HttpRequestMessage(HttpMethod.Post, "http://localhost:8080/api/v1/auth/universal-auth/login");
+       
         var loginContent = new FormUrlEncodedContent(new[]
         {
             new KeyValuePair<string, string>("clientId", "559801cc-0bc5-41d4-85dc-e4f530c11ebf"),
@@ -50,7 +59,10 @@ public class TokenService
             var httpClient = _httpClientFactory.CreateClient();
             var authToken = await RetrieveAndStoreTokenAsync();
 
-            var secretRequest = new HttpRequestMessage(HttpMethod.Get, "http://backend:8090/api/v3/secrets/raw?workspaceId=b0839732-279f-4f2a-9de2-5e88df668672&environment=dev");
+            var secretRequest = new HttpRequestMessage(HttpMethod.Get, "http://infisical-backend:8080/api/v3/secrets/raw?workspaceId=b0839732-279f-4f2a-9de2-5e88df668672&environment=dev");
+            
+            // var secretRequest = new HttpRequestMessage(HttpMethod.Get, "http://localhost:8080/api/v3/secrets/raw?workspaceId=b0839732-279f-4f2a-9de2-5e88df668672&environment=dev");
+            
             secretRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
 
             var secretResponse = await httpClient.SendAsync(secretRequest);
@@ -65,7 +77,14 @@ public class TokenService
             var secrets = secretRespondDTO.Secrets
                 .ToDictionary(secret => secret.SecretKey, secret => secret.SecretValue);
 
+            _configuration["MeilisearchClient:Host"] = secrets["MEILISEARCHCLIENT__HOST"];
+            _configuration["MeilisearchClient:ApiKey"] = secrets["MEILISEARCHCLIENT__APIKEY"];
+
+            Console.WriteLine(_configuration["MeilisearchClient:Host"]);
+            Console.WriteLine(_configuration["MeilisearchClient:ApiKey"]);
+
             return secrets;
+
         }
         catch (Exception ex)
         {

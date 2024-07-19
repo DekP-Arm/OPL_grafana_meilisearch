@@ -130,10 +130,9 @@ namespace OPL_grafana_meilisearch
                     [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
                 }
             });
-            
 
-            var tokenService = app.Services.GetRequiredService<TokenService>();
-            await tokenService.RetrieveAndStoreTokenAsync();
+
+            
             app.Run();
         }
     }

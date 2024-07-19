@@ -9,7 +9,7 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+:5500
     networks:
-      otel:
+      - infisical
     depends_on:
       - backend
   blackbox:
@@ -17,7 +17,7 @@ services:
     ports:
       - "9115:9115"
     networks:
-      otel:
+      - infisical
   meilisearch:
     image: getmeili/meilisearch:v1.9
     ports:
@@ -28,7 +28,7 @@ services:
     volumes:
       - ./meili_data:/meili_data
     networks:
-      otel:
+      - infisical
 
   prometheus:
     image: prom/prometheus:v2.53.0
@@ -43,7 +43,7 @@ services:
         condition: "service_started"
         required: false
     networks:
-      otel:
+      - infisical
   
   init:
     image: &tempoImage grafana/tempo:2.5.0
@@ -68,7 +68,7 @@ services:
     depends_on:
       - otel-collector
     networks:
-      otel:
+      - infisical
   loki:
     image: grafana/loki:2.9.8
     container_name: loki
@@ -81,7 +81,7 @@ services:
     ports:
       - 3100:3100
     networks:
-      otel:
+      - infisical
 
   grafana:
     image: grafana/grafana:11.0.0
@@ -103,7 +103,7 @@ services:
       - tempo
       - loki      
     networks:
-      otel:
+      - infisical
   otel-collector:
     container_name: otel
     hostname: otel
@@ -118,7 +118,7 @@ services:
       - "4317:4317"   # OTLP gRPC receiver
       - "9200:55679"  # zpages
     networks:
-      otel:
+      - infisical
 
   db-migration:
     container_name: infisical-db-migration
@@ -146,12 +146,12 @@ services:
     pull_policy: always
     env_file: .env
     ports:
-      - "8090:8080"
+      - "80:8080"
     environment:
       - NODE_ENV=production
+      - HOST=0.0.0.0
     networks:
       - infisical
-      - otel
 
   redis:
     image: redis
@@ -182,7 +182,6 @@ services:
       retries: 10
 
 networks:
-  otel:
   infisical:
 
 volumes:
