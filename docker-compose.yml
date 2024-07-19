@@ -18,6 +18,7 @@ services:
       - "9115:9115"
     networks:
       - infisical
+      - otel
   meilisearch:
     image: getmeili/meilisearch:v1.9
     ports:
@@ -28,7 +29,7 @@ services:
     volumes:
       - ./meili_data:/meili_data
     networks:
-      - infisical
+      - otel
 
   prometheus:
     image: prom/prometheus:v2.53.0
@@ -43,7 +44,7 @@ services:
         condition: "service_started"
         required: false
     networks:
-      - infisical
+      - otel
   
   init:
     image: &tempoImage grafana/tempo:2.5.0
@@ -68,7 +69,7 @@ services:
     depends_on:
       - otel-collector
     networks:
-      - infisical
+      - otel
   loki:
     image: grafana/loki:2.9.8
     container_name: loki
@@ -81,7 +82,7 @@ services:
     ports:
       - 3100:3100
     networks:
-      - infisical
+      - otel
 
   grafana:
     image: grafana/grafana:11.0.0
@@ -103,7 +104,7 @@ services:
       - tempo
       - loki      
     networks:
-      - infisical
+      - otel
   otel-collector:
     container_name: otel
     hostname: otel
@@ -118,7 +119,7 @@ services:
       - "4317:4317"   # OTLP gRPC receiver
       - "9200:55679"  # zpages
     networks:
-      - infisical
+      - otel
 
   db-migration:
     container_name: infisical-db-migration
@@ -149,7 +150,6 @@ services:
       - "80:8080"
     environment:
       - NODE_ENV=production
-      - HOST=0.0.0.0
     networks:
       - infisical
 
@@ -183,6 +183,7 @@ services:
 
 networks:
   infisical:
+  otel:
 
 volumes:
   loki:

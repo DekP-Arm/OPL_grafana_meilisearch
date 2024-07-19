@@ -34,8 +34,8 @@ public class TokenService
        
         var loginContent = new FormUrlEncodedContent(new[]
         {
-            new KeyValuePair<string, string>("clientId", "559801cc-0bc5-41d4-85dc-e4f530c11ebf"),
-            new KeyValuePair<string, string>("clientSecret", "7474e2e185e2a120d5b2da833cf5cb398de94d20caa4ad0d766f017c16379849")
+            new KeyValuePair<string, string>("clientId", "cbc798a6-1b89-4aee-951e-9b8e4fa31b40"),
+            new KeyValuePair<string, string>("clientSecret", "965044ffecdc5b4c393f590f3dcb7990737a1a049e48faca5829fb9a5c0b8c99")
         });
         loginRequest.Content = loginContent;
         loginRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
