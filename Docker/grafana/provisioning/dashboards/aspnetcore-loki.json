@@ -1,0 +1,17 @@
+{
+    "dashboard": {
+      "panels": [
+        {
+          "datasource": "Loki",
+          "type": "logs",
+          "targets": [
+            {
+              "expr": "{exporter=\"OTLP\"} |= ``"
+            }
+          ],
+          "title": "OTLP Logs"
+        }
+      ],
+      "title": "OTLP Logs Dashboard"
+    }
+  }
