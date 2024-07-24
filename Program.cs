@@ -28,7 +28,6 @@ namespace OPL_grafana_meilisearch
     public class Program
     {
         public static ConfigurationManager? Configuration { get; private set; }
-
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);

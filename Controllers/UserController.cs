@@ -171,7 +171,25 @@ namespace OPL_grafana_meilisearch.Controllers
             }
         }
 
-        [HttpGet("GetUser")]
+    [HttpGet("GetAcessToken")]
+    public async Task<IActionResult> GetAcessTokenAsync()
+    {
+        var response = new BaseHttpResponse<string>();
+        try
+        {
+            var data_secret = await _tokenService.RetrieveAndStoreTokenAsync();
+            Console.WriteLine(data_secret);
+
+            response.SetSuccess(data_secret, "Success", "200");
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex);
+        }
+    }
+
+    [HttpGet("GetSecret")]
     public async Task<IActionResult> GetAsync()
     {
         var response = new BaseHttpResponse<Dictionary<string, string>>();
