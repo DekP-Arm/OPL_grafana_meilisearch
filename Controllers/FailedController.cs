@@ -71,9 +71,10 @@ namespace OPL_grafana_meilisearch.Controllers
                     _logger.LogError(ex, "Error getting users");
 
                     var meilisearchHost = _configuration.GetValue<string>("MeilisearchClient:Host");
+                    Console.WriteLine(meilisearchHost);
                     var meilisearchApiKey = _configuration.GetValue<string>("MeilisearchClient:ApiKey");
-
-                    var _meilisearch = new MeilisearchClient(meilisearchHost, meilisearchApiKey);
+                    Console.WriteLine(meilisearchApiKey);
+                    // var _meilisearch = new MeilisearchClient(meilisearchHost, meilisearchApiKey);
 
                     using (var meilisearchActivity = activitySource.StartActivity("Send Data to Meilisearch", ActivityKind.Client))
                     {
